@@ -16,7 +16,7 @@ private:
     double volatility[];
     double prevABC[3];
 
-
+    // Data clasification based on high, medium and low volatility
     void dataClasification(double &A[], double &B[], double &C[]) {
         double hv[];
         double mv[];
@@ -51,7 +51,7 @@ private:
 
 
 public:
-    Cluster(int dataPeriod, double high, double mid, double low) {
+    Cluster(int dataPeriod, float high, float mid, float low) {
         this.high_volatile = high;
         this.mid_volatile = mid;
         this.low_volatile = low;
@@ -60,11 +60,20 @@ public:
         ArrayInitialize(this.prevABC, 0);
     }
 
-    void setVolatility(double &inVolatile[], int currentBar) {
+    int setVolatility(int count=0, double &inVolatile[], int currentBar) {
         int inStart = currentBar - this.period;
-        if (ArrayCopy(this.volatility, inVolatile, 0, inStart, this.period) <= 0) {
-            this.setVolatility(inVolatile, currentBar);
+        int copy = ArrayCopy(this.volatility, inVolatile, 0, inStart, this.period);
+        if(copy <= 0) {
+            printf("Failed to copy volatility. ErrCode : %d", GetLastError());
+            sleep(500);
+            printf("Try to do it again");
+            if(count > 5) {
+                printf("Still failed, even if 5 time tries. ErrCode : %d", GetLastError());
+                return(0);
+            }
+            this.setVolatility(count+1, inVolatile, currentBar);
         }
+        return(copy);
     }
 
     double getAtr() {
