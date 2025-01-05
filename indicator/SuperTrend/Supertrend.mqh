@@ -1,4 +1,5 @@
 #include "Cluster.mqh"
+#include "../TwoLineIndicator.mqh"
 #include "../../Lib/ArrayProcessor.mqh"
 
 
