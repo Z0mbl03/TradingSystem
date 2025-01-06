@@ -8,7 +8,7 @@ enum Band {
     LOWER = 2;
 }
 
-class Supertrend : TwoLineIndicator {
+class Supertrend : public TwoLineIndicator {
     // constant value
     const int SERIES_SIZE = 10;
 
