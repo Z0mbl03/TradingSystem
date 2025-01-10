@@ -60,18 +60,18 @@ public:
         ArrayInitialize(this.prevABC, 0);
     }
 
-    int setVolatility(int count=0, double &inVolatile[], int currentBar) {
+    int setVolatility(double &inVolatile[], int currentBar, int count=0) {
         int inStart = currentBar - this.period;
         int copy = ArrayCopy(this.volatility, inVolatile, 0, inStart, this.period);
         if(copy <= 0) {
             printf("Failed to copy volatility. ErrCode : %d", GetLastError());
-            sleep(500);
+            Sleep(500);
             printf("Try to do it again");
             if(count > 5) {
                 printf("Still failed, even if 5 time tries. ErrCode : %d", GetLastError());
                 return(0);
             }
-            this.setVolatility(count+1, inVolatile, currentBar);
+            this.setVolatility(inVolatile, currentBar, count+1);
         }
         return(copy);
     }
