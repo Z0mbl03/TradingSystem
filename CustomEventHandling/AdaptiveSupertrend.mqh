@@ -1,52 +1,53 @@
 #include "../indicator/TwoLineIndicator.mqh"
 #include "../indicator/SuperTrend/Supertrend.mqh"
 
+namespace CustomEventHandling {
+    class AdaptiveSupertrend {
+        static AdaptiveSupertrend *instance;
+        TwoLineIndicator *supertrend;
 
-class AdaptiveSupertrendEventHandling {
-    static AdaptiveSupertrendEventHandling *instance;
-    TwoLineIndicator *supertrend;
+        // data from user input
+        int atrLen;
+        int trainingPeriod;
+        float factor;
+        float highVol;
+        float midVol;
+        float lowVol;
 
-    // data from user input
-    int atrLen;
-    int trainingPeriod;
-    float factor;
-    float highVol;
-    float midVol;
-    float lowVol;
+        // buffer data
+        int handle;
+        double atrBuffer;
+        double upperLine;
+        double lowerLine;
+        double midUpperLine;
+        double midLowerLine;
+        bool channel;
 
-    // buffer data
-    int handle;
-    double atrBuffer;
-    double upperLine;
-    double lowerLine;
-    double midUpperLine;
-    double midLowerLine;
-    bool channel;
+        AdaptiveSupertrend() : supertrend(NULL, NULL, NULL, NULL, NULL) {};
 
-    AdaptiveSupertrendEventHandling() : supertrend(NULL, NULL, NULL, NULL, NULL) {};
-
-public:
-    AdaptiveSupertrendEventHandling *getInstance();
-    int OnInit();
-    int OnCalculate(const int rates_total, const int prev_calculated, const datetime &time[]. const double &open[], const double &high[], const double &low[], const double &close[]);
-    int OnDeinit(const int reason);
-    void userInput(const int atrLen, const int trainingPeriod, const float factor, const float highVol, const float midVol, const float lowVol);
-    void channel();
-}
+    public:
+        static AdaptiveSupertrend *getInstance();
+        int OnInit();
+        int OnCalculate(const int rates_total, const int prev_calculated, const datetime &time[]. const double &open[], const double &high[], const double &low[], const double &close[]);
+        int OnDeinit(const int reason);
+        void userInput(const int atrLen, const int trainingPeriod, const float factor, const float highVol, const float midVol, const float lowVol);
+        void channel();
+    };
+};
 
 // Initialized static member
-AdaptiveSupertrendEventHandling *AdaptiveSupertrendEventHandling::instance = NULL;
+CustomEventHandling::AdaptiveSupertrend *CustomEventHandling::AdaptiveSupertrend::instance = NULL;
 
-AdaptiveSupertrendEventHandling *AdaptiveSupertrendEventHandling::getInstance() {
-    if (AdaptiveSupertrendEventHandling::instance == NULL) {
-        AdaptiveSupertrendEventHandling::instance = new AdaptiveSupertrendEventHandling();
+CustomEventHandling::AdaptiveSupertrend *AdaptiveSupertrend::getInstance() {
+    if (CustomEventHandling::AdaptiveSupertrend::instance == NULL) {
+        CustomEventHandling::AdaptiveSupertrend::instance = new CustomEventHandling::AdaptiveSupertrend();
     }
 
-    return(AdaptiveSupertrendEventHandling::instance);
+    return(CustomEventHandling::AdaptiveSupertrend::instance);
 }
 
-int AdaptiveSupertrendEventHandling::OnInit() {
-    this->supertrend = new Supertrend(trainingPeriod, highVol, midVol, lowVol);
+int CustomEventHandling::AdaptiveSupertrend::OnInit() {
+    this->supertrend = new Supertrend(this.trainingPeriod, this.highVol, this.midVol, this.lowVol);
 
     handle = iATR(_Symbol, _Period, this->atrLen);
 
@@ -61,10 +62,11 @@ int AdaptiveSupertrendEventHandling::OnInit() {
     // set label to each indicator drawed
     PlotIndexSetString(0, PLOT_LABEL, "UPPER LINE");
     PlotIndexSetString(0, PLOT_LABEL, "LOWER LINE");
+    return(INIT_SUCCEEDED);
 }
 
-int AdaptiveSupertrendEventHandling::int OnCalculate(const int rates_total, const int prev_calculated,
-const datetime &time[]. const double &open[], const double &high[],
+int CustomEventHandling::AdaptiveSupertrend::OnCalculate(const int rates_total, const int prev_calculated,
+const datetime &time[], const double &open[], const double &high[],
 const double &low[], const double &close[]) {
     int copyAtr;
     int current = prev_calculated;
@@ -72,7 +74,7 @@ const double &low[], const double &close[]) {
         copyAtr = copyBuffer(handle, 0, 0, rates_total, atrBuffer);
         if (copyAtr <= 0) {
             printf("Failed to copy ATR Buffer. Error Code : %d", GetLastError());
-            return(prev_calculated)
+            return(prev_calculated);
         }
 
         if (this->supertrend->setSeries(atrBuffer, open, close, high, low) <= 0) {
@@ -83,13 +85,13 @@ const double &low[], const double &close[]) {
         this->supertrend->setBar(current);
         dynamic_cast<Supertrend*>(this->supertrend)->identifyngTrend();
         this->supertrend->getBuffer(this->upperLine, this->lowerLine);
-        this->supertrend->channel()
+        this->supertrend->channel();
     }
 
     copyAtr = copyBuffer(handle, 0, 0, rates_total, atrBuffer);
     if (copyAtr <= 0) {
         printf("Failed to copy ATR Buffer. Error Code : %d", GetLastError());
-            return(prev_calculated)
+        return(prev_calculated);
     }
 
     if (this->supertrend->setSeries(atrBuffer, open, close, high, low) <= 0) {
@@ -101,10 +103,10 @@ const double &low[], const double &close[]) {
     dynamic_cast<Supertrend*>(this->supertrend)->identifyngTrend();
     this->supertrend->getBuffer(this->upperLine, this->lowerLine);
     this->supertrend->channel()
-    return(reates_total-1);
+    return(rates_total-1);
 }
 
-void AdaptiveSupertrendEventHandling::OnDeinit(const int reason) {
+void CustomEventHandling::AdaptiveSupertrend::OnDeinit(const int reason) {
     if (reason >= 0 && reason <= 9 ) {
         bool handleRemove = IndicatorRelease(handle);
         ArrayFree(atrBuffer);
@@ -126,7 +128,7 @@ void AdaptiveSupertrendEventHandling::OnDeinit(const int reason) {
     }
 }
 
-void AdaptiveSupertrendEventHandling::userInput(const int atrLen, const int trainingPeriod,
+void CustomEventHandling::AdaptiveSupertrend::userInput(const int atrLen, const int trainingPeriod,
 const float factor, const float highVol, const float midVol, const float lowVol) {
     this->atrLen = atrLen;
     this->factor = factor;
@@ -135,7 +137,7 @@ const float factor, const float highVol, const float midVol, const float lowVol)
     this->lowVol = lowVol;
 }
 
-void AdaptiveSupertrendEventHandling::channel() {
+void CustomEventHandling::AdaptiveSupertrend::channel() {
     if (this->channel == 1) {
         SetIndexBuffer(2, midUpperLine, INDICATOR_DATA);
         SetIndexBuffer(3, midLowerLine, INDICATOR_DATA);

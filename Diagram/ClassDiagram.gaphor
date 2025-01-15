@@ -3048,7 +3048,7 @@
 </Property>
 <Class id="720b4a66-c880-11ef-ab5f-a199ad9fd67a">
 <name>
-<val>AdaptiveSupertrendEventHandling</val>
+<val>AdaptiveSupertrend</val>
 </name>
 <ownedAttribute>
 <reflist>
@@ -3095,7 +3095,7 @@
 </Class>
 <ClassItem id="720c3252-c880-11ef-8816-a199ad9fd67a">
 <matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 41.89062261581421, 76.80000000000018)</val>
+<val>(1.0, 0.0, 0.0, 1.0, 45.000000000000014, 76.80000000000018)</val>
 </matrix>
 <top-left>
 <val>(0.0, 0.0)</val>
@@ -3133,7 +3133,7 @@
 <val>(1.0, 0.0, 0.0, 1.0, 636.9300226833361, 103.23703189940551)</val>
 </matrix>
 <points>
-<val>[(83.06997731666388, 395.5629681005947), (83.06997731666388, 554.3629681005946)]</val>
+<val>[(86.17935470084967, 395.5629681005947), (83.06997731666388, 554.3629681005946)]</val>
 </points>
 <head-connection>
 <ref refid="720c3252-c880-11ef-8816-a199ad9fd67a"/>

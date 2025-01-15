@@ -24,8 +24,8 @@
 
 // include library
 #include <Math/Stat/Normal.mqh>
-#include "CustomEventHandling/AdaptiveSupertrendEventHandling.mqh";
-CustomEventHandling::AdaptiveSupertrendEventHandling *supertrendEventHandling;
+#include "CustomEventHandling/AdaptiveSupertrend.mqh";
+CustomEventHandling::AdaptiveSupertrend *supertrendEventHandling;
 
 // define indicator propertry
 #property indicator_chart_window
@@ -45,34 +45,34 @@ CustomEventHandling::AdaptiveSupertrendEventHandling *supertrendEventHandling;
 #property indicator_color2 clrLawnGreen
 
 // define property for channel (here)
+namespace MyIsndicator {
+    // take user input
+    input int atrLen = 10;
+    input float factor = 3.0;
+    input int trainingDataPeriod = 100;
+    input float highVol = 0.75;
+    input float midVol = 0.5;
+    input float lowVol = 0.25;
 
 
-// take user input
-input int atrLen = 10;
-input float factor = 3.0;
-input int trainingDataPeriod = 100;
-input float highVol = 0.75;
-input float midVol = 0.5;
-input float lowVol = 0.25;
+    // initialization event handling
+    int OnInit() {
+        ::supertrendEventHandling = CustomEventHandling::AdaptiveSupertrend::getInstance();
+        ::supertrendEventHandling.userInput(atrLen, trainingDataPeriod, factor, highVol, midVol, lowVol);
+        ::supertrendEventHandling.OnInit();
+        return(INIT_SUCCEEDED);
+    }
 
+    // calculated event handling
+    int OnCalculate(const int rates_total, const int prev_calculated, const datetime &time[],
+                    const double &open[], const double &high[], const double &low[], const double &close[],
+                    const long &tick_volume[], const long &volume[], const int &spread[]) {
+        ::supertrendEventHandling.OnCalculate(rates_total, prev_calculated, time, open, high, low, close);
+        return(rates_total);
+    }
 
-// initialization event handling
-int OnInit() {
-    ::supertrendEventHandling = CustomEventHandling::AdaptiveSupertrendEventHandling::getInstance();
-    ::supertrendEventHandling.userInput(atrLen, trainingDataPeriod, factor, highVol, midVol, lowVol);
-    ::supertrendEventHandling.OnInit();
-    return(INIT_SUCCEEDED);
-}
-
-// calculated event handling
-int OnCalculate(const int rates_total, const int prev_calculated, const datetime &time[],
-                const double &open[], const double &high[], const double &low[], const double &close[],
-                const long &tick_volume[], const long &volume[], const int &spread[]) {
-    ::supertrendEventHandling.OnCalculate(rates_total, prev_calculated, time, open, high, low, close);
-    return(rates_total);
-}
-
-// de initialization event handling
-int OnDeinit(const int reason) {
-    ::supertrendEventHandling.OnDeinit(reason);
+    // de initialization event handling
+    int OnDeinit(const int reason) {
+        ::supertrendEventHandling.OnDeinit(reason);
+    }
 }

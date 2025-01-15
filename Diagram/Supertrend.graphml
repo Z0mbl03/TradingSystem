@@ -1003,6 +1003,17 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
             </y:GenericNode>
           </data>
         </node>
+        <node id="n7::n25">
+          <data key="d5"/>
+          <data key="d6">
+            <y:GenericNode configuration="com.yworks.flowchart.process">
+              <y:Geometry height="30.344114303588867" width="132.3487548828125" x="1167.071585083008" y="2135.093776905349"/>
+              <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+              <y:BorderStyle color="#000000" type="line" width="1.0"/>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="112.3487548828125" x="10.0" xml:space="preserve" y="5.0">return(amoutCopy)<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+            </y:GenericNode>
+          </data>
+        </node>
       </graph>
     </node>
     <node id="n8" yfiles.foldertype="group">
@@ -1069,7 +1080,7 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
               <y:Geometry height="30.344114303588867" width="157.58494567871094" x="2317.4061923314653" y="709.8795920511449"/>
               <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="137.58494567871094" x="9.999999999999972" xml:space="preserve" y="5.0">atr = cluster.clustering()<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-1.6653345369377348E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="137.58494567871094" x="10.0" xml:space="preserve" y="5.0">atr = cluster.clustering()<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-1.6653345369377348E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
             </y:GenericNode>
           </data>
         </node>
@@ -1089,7 +1100,7 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
               <y:Geometry height="30.344114303588867" width="172.4650421142578" x="2309.966144113692" y="951.2560492655003"/>
               <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="152.4650421142578" x="9.999999999999972" xml:space="preserve" y="5.0">Call thresholdBandCheck()<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-1.6653345369377348E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="152.4650421142578" x="10.0" xml:space="preserve" y="5.0">Call thresholdBandCheck()<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-1.6653345369377348E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
             </y:GenericNode>
           </data>
         </node>
@@ -1099,7 +1110,7 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
               <y:Geometry height="30.344114303588867" width="138.3848114013672" x="2327.006259470137" y="1011.6001635690892"/>
               <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="118.38481140136719" x="9.999999999999972" xml:space="preserve" y="5.0">Call checkDirection()<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-2.220446049250313E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="118.38481140136719" x="10.0" xml:space="preserve" y="4.999999999999886">Call checkDirection()<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-2.220446049250313E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
             </y:GenericNode>
           </data>
         </node>
@@ -1109,12 +1120,11 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
               <y:Geometry height="30.344114303588867" width="154.27291870117188" x="2319.062205820235" y="1071.944277872678"/>
               <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="134.27291870117188" x="9.999999999999972" xml:space="preserve" y="5.0">Call clasificationTrend()<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-1.6653345369377348E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="20.344114303588867" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="134.27291870117188" x="10.0" xml:space="preserve" y="5.0">Call clasificationTrend()<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/></y:LabelModel><y:ModelParameter><y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="-1.6653345369377348E-16" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/></y:ModelParameter></y:NodeLabel>
             </y:GenericNode>
           </data>
         </node>
         <node id="n8::n7">
-          <data key="d5"/>
           <data key="d6">
             <y:GenericNode configuration="com.yworks.flowchart.predefinedProcess">
               <y:Geometry height="30.344114303588867" width="443.3310546875" x="2174.5331378270707" y="830.5678206583226"/>
@@ -1125,7 +1135,6 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
           </data>
         </node>
         <node id="n8::n8">
-          <data key="d5"/>
           <data key="d6">
             <y:GenericNode configuration="com.yworks.flowchart.predefinedProcess">
               <y:Geometry height="30.344114303588867" width="431.7030029296875" x="2180.347163705977" y="890.9119349619115"/>
@@ -1924,13 +1933,10 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="n7::e23" source="n7::n22" target="n7::n1">
+    <edge id="n7::e23" source="n7::n22" target="n7::n25">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="4.76209002786554E-13" sy="0.0" tx="0.0" ty="-20.0">
-            <y:Point x="1233.2459625244146" y="2267.700929615168"/>
-            <y:Point x="1233.2459625244142" y="2267.700929615168"/>
-          </y:Path>
+          <y:Path sx="4.76209002786554E-13" sy="0.0" tx="7.523155709510121E-13" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
           <y:BendStyle smoothed="false"/>
@@ -2018,7 +2024,6 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
       </data>
     </edge>
     <edge id="n8::e6" source="n8::n7" target="n8::n8">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="15.172057151794434" tx="0.0" ty="-15.172057151794434"/>
@@ -2029,7 +2034,6 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
       </data>
     </edge>
     <edge id="n8::e7" source="n8::n8" target="n8::n4">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="15.172057151794434" tx="0.0" ty="-15.172057151794434"/>
@@ -2083,6 +2087,20 @@ current lower supertrend ?<y:LabelModel><y:SmartNodeLabelModel distance="4.0"/><
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="15.172057151794434" tx="0.0" ty="-20.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="n7::e26" source="n7::n25" target="n7::n1">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="7.523155709510121E-13" sy="0.0" tx="0.0" ty="-20.0">
+            <y:Point x="1233.2459625244146" y="2267.700929615168"/>
+            <y:Point x="1233.2459625244142" y="2267.700929615168"/>
+          </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
           <y:BendStyle smoothed="false"/>
