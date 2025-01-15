@@ -75,4 +75,4 @@ namespace MyIsndicator {
     int OnDeinit(const int reason) {
         ::supertrendEventHandling.OnDeinit(reason);
     }
-}
+};
