@@ -23,8 +23,9 @@
 
 
 // include library
-#include <Math/Stat/Normal.mqh>
+// #include <Math/Stat/Normal.mqh>
 #include "CustomEventHandling/AdaptiveSupertrend.mqh";
+
 CustomEventHandling::AdaptiveSupertrend *supertrendEventHandling;
 
 // define indicator propertry
@@ -72,7 +73,7 @@ namespace MyIsndicator {
     }
 
     // de initialization event handling
-    int OnDeinit(const int reason) {
+    void OnDeinit(const int reason) {
         ::supertrendEventHandling.OnDeinit(reason);
     }
 };

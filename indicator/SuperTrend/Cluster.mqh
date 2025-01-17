@@ -60,7 +60,7 @@ namespace SuperTrend {
             ArrayInitialize(this.prevABC, 0);
         }
 
-        int setVolatility(double &inVolatile[], int currentBar, int count=0) {
+        int setVolatility(const double &inVolatile[], int currentBar, int count=0) {
             int inStart = currentBar - this.period;
             int copy = ArrayCopy(this.volatility, inVolatile, 0, inStart, this.period);
             if(copy <= 0) {
