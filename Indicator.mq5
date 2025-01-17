@@ -24,7 +24,7 @@
 
 // include library
 // #include <Math/Stat/Normal.mqh>
-#include "CustomEventHandling/AdaptiveSupertrend.mqh";
+#include "../Libraries/TradingSystem/CustomEventHandling/AdaptiveSupertrend.mqh";
 
 CustomEventHandling::AdaptiveSupertrend *supertrendEventHandling;
 
@@ -46,7 +46,7 @@ CustomEventHandling::AdaptiveSupertrend *supertrendEventHandling;
 #property indicator_color2 clrLawnGreen
 
 // define property for channel (here)
-namespace MyIsndicator {
+namespace MyIndicator {
     // take user input
     input int atrLen = 10;
     input float factor = 3.0;
