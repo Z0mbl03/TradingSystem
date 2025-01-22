@@ -44,6 +44,7 @@ namespace CustomEventHandling {
         this.handle = 0;
         this.chan = false;
 
+        ArrayResize(this.atrBuffer, this.trainingPeriod);
         ArrayInitialize(this.atrBuffer, 0);
         ArrayInitialize(this.upperLine, 0);
         ArrayInitialize(this.lowerLine, 0);
@@ -65,7 +66,7 @@ namespace CustomEventHandling {
     int AdaptiveSupertrend::OnInit() {
         this.supertrend = new SuperTrend::Supertrend(this.trainingPeriod, this.highVol, this.midVol, this.lowVol, this.factor);
 
-        handle = iATR(_Symbol, _Period, this.atrLen);
+        this.handle = iATR(_Symbol, _Period, this.atrLen);
 
         // set index to each buffer
         SetIndexBuffer(0, this.upperLine, INDICATOR_DATA);
@@ -86,36 +87,41 @@ namespace CustomEventHandling {
     const double &low[], const double &close[]) {
         int copyAtr;
         int current = prev_calculated;
-        for (;current < rates_total-2; current++) {
-            copyAtr = CopyBuffer(handle, 0, 0, rates_total, atrBuffer);
-            if (copyAtr <= 0) {
-                printf("Failed to copy ATR Buffer. Error Code : %d", GetLastError());
-                return(prev_calculated);
-            }
+        for (;current < rates_total-1; current++) {
+            if (current > rates_total*90/100) {
+                // copy atr from current position to the previous 100
+                copyAtr = CopyBuffer(this.handle, 0, rates_total - current, this.trainingPeriod, this.atrBuffer);
+                if (copyAtr <= 0) {
+                    printf("Failed to copy ATR Buffer. Error Code : %d", GetLastError());
+                    return(current);
+                }
 
-            if (this.supertrend.setSeries(atrBuffer, open, close, high, low) <= 0) {
-                printf("Failed copy all series, script abort. ErrCode : %d", GetLastError());
-                ExpertRemove();
-            }
+                this.supertrend.setBar(current);
+                // if set series failed, stop the whole script
+                if (this.supertrend.setSeries(this.atrBuffer, open, close, high, low) <= 0) {
+                    printf("Failed copy all series, script abort. ErrCode : %d", GetLastError());
+                    ExpertRemove();
+                }
 
-            this.supertrend.setBar(current);
-            dynamic_cast<SuperTrend::Supertrend*>(this.supertrend).identifyngTrend();
-            this.supertrend.getBuffer(this.upperLine, this.lowerLine);
-            this.channel();
+                dynamic_cast<SuperTrend::Supertrend*>(this.supertrend).identifyngTrend();
+                this.supertrend.getBuffer(this.upperLine, this.lowerLine);
+                this.channel();
+            }
         }
 
-        copyAtr = CopyBuffer(handle, 0, 0, rates_total, atrBuffer);
+        copyAtr = CopyBuffer(this.handle, 0, rates_total - current, this.trainingPeriod, this.atrBuffer);
         if (copyAtr <= 0) {
             printf("Failed to copy ATR Buffer. Error Code : %d", GetLastError());
-            return(prev_calculated);
+            // printf("current : %d", current);
+            return(current);
         }
 
-        if (this.supertrend.setSeries(atrBuffer, open, close, high, low) <= 0) {
+        this.supertrend.setBar(current);
+        if (this.supertrend.setSeries(this.atrBuffer, open, close, high, low) <= 0) {
             printf("Failed copy all series, script abort. ErrCode : %d", GetLastError());
             ExpertRemove();
         }
 
-        this.supertrend.setBar(current);
         dynamic_cast<SuperTrend::Supertrend*>(this.supertrend).identifyngTrend();
         this.supertrend.getBuffer(this.upperLine, this.lowerLine);
         this.channel();
@@ -146,11 +152,12 @@ namespace CustomEventHandling {
 
     void AdaptiveSupertrend::userInput(const int inAtrLen, const int inTrainingPeriod,
     const float inFactor, const float inHighVol, const float inMidVol, const float inLowVol) {
-        this.atrLen = atrLen;
-        this.factor = factor;
-        this.highVol = highVol;
-        this.midVol = midVol;
-        this.lowVol = lowVol;
+        this.trainingPeriod = inTrainingPeriod;
+        this.atrLen = inAtrLen;
+        this.factor = inFactor;
+        this.highVol = inHighVol;
+        this.midVol = inMidVol;
+        this.lowVol = inLowVol;
     }
 
     void AdaptiveSupertrend::channel() {

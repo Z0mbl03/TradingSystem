@@ -38,7 +38,7 @@ namespace SuperTrend {
     };
 
 
-    Supertrend::Supertrend(int dataPeriod, float high, float mid, float low, float inFactor) : cluster(dataPeriod, high, mid, low), SERIES_SIZE(10), factor(factor){
+    Supertrend::Supertrend(int dataPeriod, float high, float mid, float low, float inFactor) : cluster(dataPeriod, high, mid, low), SERIES_SIZE(10), factor(inFactor){
         ArrayResize(this.Open, this.SERIES_SIZE);
         ArrayResize(this.Close, this.SERIES_SIZE);
         ArrayResize(this.High, this.SERIES_SIZE);
@@ -103,14 +103,14 @@ namespace SuperTrend {
                                 const double& high[], const double& low[], int c) {
 
         // call the cluster method to set volatility in cluster class
-        this.cluster.setVolatility(inVolatility, this.current);
+        this.cluster.setVolatility(inVolatility);
 
         // copying all the necessary
         int startCopy = this.current - this.SERIES_SIZE;
-        int copyOpen = ArrayCopy(this.Open, open, startCopy, 0, this.SERIES_SIZE);
-        int copyClose = ArrayCopy(this.Close, close, startCopy, 0, this.SERIES_SIZE);
-        int copyHigh = ArrayCopy(this.High, high, startCopy, 0, this.SERIES_SIZE);
-        int copyLow = ArrayCopy(this.Low, low, startCopy, 0, this.SERIES_SIZE);
+        int copyOpen = ArrayCopy(this.Open, open, 0, startCopy, this.SERIES_SIZE);
+        int copyClose = ArrayCopy(this.Close, close, 0, startCopy, this.SERIES_SIZE);
+        int copyHigh = ArrayCopy(this.High, high, 0, startCopy, this.SERIES_SIZE);
+        int copyLow = ArrayCopy(this.Low, low, 0, startCopy, this.SERIES_SIZE);
         int amountCopy = copyOpen*copyClose*copyHigh*copyLow;
 
         if ((amountCopy) <= 0) {

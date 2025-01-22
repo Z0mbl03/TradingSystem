@@ -68,8 +68,8 @@ namespace MyIndicator {
     int OnCalculate(const int rates_total, const int prev_calculated, const datetime &time[],
                     const double &open[], const double &high[], const double &low[], const double &close[],
                     const long &tick_volume[], const long &volume[], const int &spread[]) {
-        ::supertrendEventHandling.OnCalculate(rates_total, prev_calculated, time, open, high, low, close);
-        return(rates_total);
+        int bar = ::supertrendEventHandling.OnCalculate(rates_total, prev_calculated, time, open, high, low, close);
+        return(bar);
     }
 
     // de initialization event handling

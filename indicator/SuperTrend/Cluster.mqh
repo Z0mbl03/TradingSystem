@@ -22,47 +22,57 @@ namespace SuperTrend {
             double mv[];
             double lv[];
 
-            for (int index = 0; index < this.period; index++) {
+            ArrayResize(hv, 1);
+            ArrayResize(mv, 1);
+            ArrayResize(lv, 1);
+
+            ArrayInitialize(hv, 0);
+            ArrayInitialize(mv, 0);
+            ArrayInitialize(lv, 0);
+
+            for (int index = this.period-1; index >= 0; index--) {
                 if (ArrayProcessor::checkData(this.volatility[index])) {
                     printf("Bad data\nSkip to calculated");
                     continue;
                 }
 
-                double a = MathAbs(volatility[index] - A[0]);
-                double b = MathAbs(volatility[index] - B[0]);
-                double c = MathAbs(volatility[index] - C[0]);
+                double a = MathAbs(this.volatility[index] - A[0]);
+                double b = MathAbs(this.volatility[index] - B[0]);
+                double c = MathAbs(this.volatility[index] - C[0]);
                 if (a < b && a < c) {
-                    ArrayProcessor::insertBegin(hv, volatility[index]);
+                    ArrayProcessor::insertBegin(hv, this.volatility[index]);
                 }
 
                 if (b < a && b < c) {
-                    ArrayProcessor::insertBegin(mv, volatility[index]);
+                    ArrayProcessor::insertBegin(mv, this.volatility[index]);
                 }
 
                 if (c < a && c < b) {
-                    ArrayProcessor::insertBegin(lv, volatility[index]);
+                    ArrayProcessor::insertBegin(lv, this.volatility[index]);
                 }
             }
 
-            ArrayProcessor::insertBegin(A, MathMean(hv), sizeof(A));
-            ArrayProcessor::insertBegin(B, MathMean(mv), sizeof(B));
-            ArrayProcessor::insertBegin(C, MathMean(lv), sizeof(C));
+            ArrayProcessor::insertBegin(A, MathMean(hv), ArraySize(A));
+            ArrayProcessor::insertBegin(B, MathMean(mv), ArraySize(B));
+            ArrayProcessor::insertBegin(C, MathMean(lv), ArraySize(C));
         }
 
 
     public:
-        Cluster(int dataPeriod, float high, float mid, float low) {
-            this.high_volatile = high;
-            this.mid_volatile = mid;
-            this.low_volatile = low;
-            this.period = dataPeriod;
+        Cluster(int inPeriod, float inHigh, float inMid, float inLow) {
+            this.high_volatile = inHigh;
+            this.mid_volatile = inMid;
+            this.low_volatile = inLow;
+            this.period = inPeriod;
+            this.atr = 0;
             ArrayResize(this.volatility, this.period);
+
+            ArrayInitialize(this.volatility, 0);
             ArrayInitialize(this.prevABC, 0);
         }
 
-        int setVolatility(const double &inVolatile[], int currentBar, int count=0) {
-            int inStart = currentBar - this.period;
-            int copy = ArrayCopy(this.volatility, inVolatile, 0, inStart, this.period);
+        int setVolatility(const double &inVolatile[], int count=0) {
+            int copy = ArrayCopy(this.volatility, inVolatile);
             if(copy <= 0) {
                 printf("Failed to copy volatility. ErrCode : %d", GetLastError());
                 Sleep(500);
@@ -71,7 +81,7 @@ namespace SuperTrend {
                     printf("Still failed, even if 5 time tries. ErrCode : %d", GetLastError());
                     return(0);
                 }
-                this.setVolatility(inVolatile, currentBar, count+1);
+                this.setVolatility(inVolatile, count+1);
             }
             return(copy);
         }
@@ -87,9 +97,9 @@ namespace SuperTrend {
             this.upper = ArrayProcessor::max(volatility);
             this.lower = ArrayProcessor::min(volatility);
 
-            double high = this.lower + (this.upper - this.lower) * this.high_volatile;
-            double med = this.lower + (this.upper - this.lower) * this.mid_volatile;
-            double low = this.lower + (this.upper - this.lower) * this.low_volatile;
+            double high = this.lower + (this.upper - this.lower) * (double)this.high_volatile;
+            double med = this.lower + (this.upper - this.lower) * (double)this.mid_volatile;
+            double low = this.lower + (this.upper - this.lower) * (double)this.low_volatile;
 
             double A[2] = {high, 0};
             double B[2] = {med, 0};
@@ -113,9 +123,9 @@ namespace SuperTrend {
                 this.prevABC[2] = C[0];
             }
 
-            distances[0] = MathAbs(volatility[this.period] - B[0]);
-            distances[1] = MathAbs(volatility[this.period] - A[0]);
-            distances[2] = MathAbs(volatility[this.period] - C[0]);
+            distances[0] = MathAbs(volatility[this.period-1] - A[0]);
+            distances[1] = MathAbs(volatility[this.period-1] - B[0]);
+            distances[2] = MathAbs(volatility[this.period-1] - C[0]);
 
             centroids[0] = A[0];
             centroids[1] = B[0];

@@ -6,7 +6,7 @@ public :
     static void insertBegin(double &src[], double val) {
         int size = ArraySize(src)+1;
         ArrayResize(src, size);
-        for (int i = 0; i < size; i--) {
+        for (int i = size-1; i > 0; i--) {
             src[i] = src[i-1];
         }
         src[0] = val;
@@ -14,8 +14,8 @@ public :
 
     // this used for fixed array
     static void insertBegin(double &src[], double val, int size) {
-        int i = 0;
-        for (; i < size; i--) {
+        int i = size-1;
+        for (; i > 0; i--) {
             src[i] = src[i-1];
         }
         src[0] = val;
@@ -23,8 +23,8 @@ public :
 
     // used for integer array
     static void insertBegin(int &src[], int val, int size) {
-        int i = 0;
-        for (; i < size; i--) {
+        int i = size-1;
+        for (; i > 0; i--) {
             src[i] = src[i-1];
         }
         src[0] = val;
