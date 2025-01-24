@@ -16,8 +16,8 @@ namespace SuperTrend {
         double Close[];
         double High[];
         double Low[];
-        double upperSupertrend[2];
-        double lowerSupertrend[2];
+        double upperLine[2];
+        double lowerLine[2];
         int current; // this refer to the current bar, the current bar should be the last closed bar not on going bar
         double src;
         double midUpperLine;
@@ -49,46 +49,49 @@ namespace SuperTrend {
         ArrayInitialize(this.High, 0);
         ArrayInitialize(this.Low, 0);
 
-        ArrayInitialize(this.upperSupertrend, 0);
-        ArrayInitialize(this.lowerSupertrend, 0);
+        ArrayInitialize(this.upperLine, 0);
+        ArrayInitialize(this.lowerLine, 0);
     }
 
     void Supertrend::clasificationTrend() {
-        if (this.direction > -1 && this.direction < 1) {
-            if (this.direction == 1) {
-                this.midUpperLine = 0;
-                this.midUpperLine = this.src;
-                this.upperSupertrend[0] = 0;
-            }else if (direction == -1) {
-                this.midLowerLine = 0;
-                this.midUpperLine = this.src;
-                this.lowerSupertrend[0] = 0;
-            }
+        ArrayProcessor::insertBegin(this.upperLine, this.upperLine[0], 2);
+        ArrayProcessor::insertBegin(this.lowerLine, this.lowerLine[0], 2);
+
+        if (this.direction == 1) {
+            this.midUpperLine = 0;
+            this.midUpperLine = this.src;
+            this.upperLine[0] = 0;
+        }else if (direction == -1) {
+            this.midLowerLine = 0;
+            this.midUpperLine = this.src;
+            this.lowerLine[0] = 0;
         }
     }
 
     void Supertrend::checkDirection() {
-        if (this.Close[this.SERIES_SIZE-1] > this.upperSupertrend[1]) {
+        if (this.Close[this.SERIES_SIZE-1] > this.upperLine[1]) {
             this.direction = 1;
-        } else if (this.Close[this.SERIES_SIZE-1] < this.lowerSupertrend[0]) {
+        } else if (this.Close[this.SERIES_SIZE-1] < this.lowerLine[0]) {
             this.direction = -1;
         }
     }
 
     void Supertrend::thresholdBandCheck() {
-        double Max = this.High[this.SERIES_SIZE-1] + ((this.High[this.SERIES_SIZE-1]*95)/100);
-        double Min = this.Low[this.SERIES_SIZE-1] - ((this.Low[this.SERIES_SIZE-1]*95)/100);
+        double Max = this.High[this.SERIES_SIZE-1] + ((this.High[this.SERIES_SIZE-1]*25)/100);
+        double Min = this.Low[this.SERIES_SIZE-1] - ((this.Low[this.SERIES_SIZE-1]*25)/100);
 
-        if (this.upperSupertrend[0] > this.upperSupertrend[1]) {
-            if (this.Close[this.SERIES_SIZE-1] < this.upperSupertrend[0]) {
-                if (Max > this.upperSupertrend[0]) {
-                    this.upperSupertrend[0] = this.upperSupertrend[1];
+        if (this.upperLine[0] > this.upperLine[1]) {
+            if (this.Close[this.SERIES_SIZE-2] < this.upperLine[1]) {
+                if (Max > this.upperLine[0] && Min < this.upperLine[0]) {
+                    this.upperLine[0] = this.upperLine[1];
                 }
             }
-        } else if (this.lowerSupertrend[0] < this.lowerSupertrend[1]) {
-            if (this.Close[this.SERIES_SIZE-1] > this.lowerSupertrend[0]) {
-                if (Min > this.lowerSupertrend[0]) {
-                    this.lowerSupertrend[0] = this.lowerSupertrend[1];
+        }
+
+         if (this.lowerLine[0] < this.lowerLine[1]) {
+            if (this.Close[this.SERIES_SIZE-2] > this.lowerLine[1]) {
+                if (Max > this.lowerLine[0] && Min < this.upperLine[0]) {
+                    this.lowerLine[0] = this.lowerLine[1];
                 }
             }
         }
@@ -134,16 +137,16 @@ namespace SuperTrend {
         this.cluster.clustering();
         double atr = this.cluster.getAtr();
         this.src = (this.High[this.SERIES_SIZE-1] + this.Low[this.SERIES_SIZE-1])/2;
-        ArrayProcessor::insertBegin(this.upperSupertrend, src + (this.factor*atr), 2);
-        ArrayProcessor::insertBegin(this.lowerSupertrend, src - (this.factor*atr), 2);
+        this.upperLine[0] = this.src + (this.factor*atr);
+        this.lowerLine[0] = this.src - (this.factor*atr);
         this.thresholdBandCheck();
         this.checkDirection();
         this.clasificationTrend();
     }
 
     void Supertrend::getBuffer(double &inUpperLine[], double &inLowerLine[]) {
-        inUpperLine[this.current-1] = this.upperSupertrend[0];
-        inLowerLine[this.current-1] = this.lowerSupertrend[0];
+        inUpperLine[this.current-1] = this.upperLine[0];
+        inLowerLine[this.current-1] = this.lowerLine[0];
     }
 
     void Supertrend::getChannel(double &inMidUpperLine[], double &inMidLowerLine[]) {

@@ -12,9 +12,9 @@
 <ref refid="008a564b-a524-11ef-ad27-adadde60352e"/>
 <ref refid="2f01816d-a526-11ef-bf0a-adadde60352e"/>
 <ref refid="e1a67548-a529-11ef-8487-adadde60352e"/>
+<ref refid="b1a13591-a58b-11ef-82e1-adadde60352e"/>
 <ref refid="f2e6c9d3-a529-11ef-889f-adadde60352e"/>
 <ref refid="e55c0944-a529-11ef-bd49-adadde60352e"/>
-<ref refid="b1a13591-a58b-11ef-82e1-adadde60352e"/>
 <ref refid="8c515da1-a4b7-11ef-b6bf-adadde60352e"/>
 <ref refid="780aedd6-a529-11ef-a10b-adadde60352e"/>
 <ref refid="e400b7be-a527-11ef-b649-adadde60352e"/>
@@ -1468,7 +1468,7 @@
 <ref refid="24644cbe-a529-11ef-a12a-adadde60352e"/>
 </class_>
 <name>
-<val>upperSupertrend</val>
+<val>upperLine</val>
 </name>
 <typeValue>
 <val>List&lt;Double&gt;</val>
@@ -1562,7 +1562,7 @@
 <ref refid="24644cbe-a529-11ef-a12a-adadde60352e"/>
 </class_>
 <defaultValue>
-<val>10</val>
+<val>5</val>
 </defaultValue>
 <isReadOnly>
 <val>1</val>
@@ -3737,7 +3737,7 @@
 <ref refid="24644cbe-a529-11ef-a12a-adadde60352e"/>
 </class_>
 <name>
-<val>lowerSupertrend</val>
+<val>lowerLine</val>
 </name>
 <typeValue>
 <val>List&lt;Double&gt;</val>
