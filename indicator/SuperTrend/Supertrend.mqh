@@ -38,7 +38,7 @@ namespace SuperTrend {
     };
 
 
-    Supertrend::Supertrend(int dataPeriod, float high, float mid, float low, float inFactor) : cluster(dataPeriod, high, mid, low), SERIES_SIZE(10), factor(inFactor){
+    Supertrend::Supertrend(int dataPeriod, float high, float mid, float low, float inFactor) : cluster(dataPeriod, high, mid, low), SERIES_SIZE(5), factor(inFactor){
         ArrayResize(this.Open, this.SERIES_SIZE);
         ArrayResize(this.Close, this.SERIES_SIZE);
         ArrayResize(this.High, this.SERIES_SIZE);
@@ -106,7 +106,7 @@ namespace SuperTrend {
         this.cluster.setVolatility(inVolatility);
 
         // copying all the necessary
-        int startCopy = this.current - this.SERIES_SIZE;
+        int startCopy = (this.current - this.SERIES_SIZE)-1;
         int copyOpen = ArrayCopy(this.Open, open, 0, startCopy, this.SERIES_SIZE);
         int copyClose = ArrayCopy(this.Close, close, 0, startCopy, this.SERIES_SIZE);
         int copyHigh = ArrayCopy(this.High, high, 0, startCopy, this.SERIES_SIZE);
@@ -135,20 +135,20 @@ namespace SuperTrend {
         double atr = this.cluster.getAtr();
         this.src = (this.High[this.SERIES_SIZE-1] + this.Low[this.SERIES_SIZE-1])/2;
         ArrayProcessor::insertBegin(this.upperSupertrend, src + (this.factor*atr), 2);
-        ArrayProcessor::insertBegin(this.upperSupertrend, src - (this.factor*atr), 2);
+        ArrayProcessor::insertBegin(this.lowerSupertrend, src - (this.factor*atr), 2);
         this.thresholdBandCheck();
         this.checkDirection();
         this.clasificationTrend();
     }
 
     void Supertrend::getBuffer(double &inUpperLine[], double &inLowerLine[]) {
-        inUpperLine[this.current] = this.upperSupertrend[0];
-        inLowerLine[this.current] = this.lowerSupertrend[0];
+        inUpperLine[this.current-1] = this.upperSupertrend[0];
+        inLowerLine[this.current-1] = this.lowerSupertrend[0];
     }
 
     void Supertrend::getChannel(double &inMidUpperLine[], double &inMidLowerLine[]) {
-        inMidUpperLine[this.current] = midUpperLine;
-        inMidLowerLine[this.current] = midLowerLine;
+        inMidUpperLine[this.current-1] = midUpperLine;
+        inMidLowerLine[this.current-1] = midLowerLine;
     }
 
     int Supertrend::getDir() {
