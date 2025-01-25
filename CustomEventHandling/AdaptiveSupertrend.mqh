@@ -78,7 +78,7 @@ namespace CustomEventHandling {
 
         // set label to each indicator drawed
         PlotIndexSetString(0, PLOT_LABEL, "UPPER LINE");
-        PlotIndexSetString(0, PLOT_LABEL, "LOWER LINE");
+        PlotIndexSetString(1, PLOT_LABEL, "LOWER LINE");
         return(INIT_SUCCEEDED);
     }
 
@@ -167,7 +167,7 @@ namespace CustomEventHandling {
             PlotIndexSetDouble(2, PLOT_EMPTY_VALUE, 0);
             PlotIndexSetDouble(3, PLOT_EMPTY_VALUE, 0);
             PlotIndexSetString(2, PLOT_LABEL, "MID UPPER LINE");
-            PlotIndexSetString(2, PLOT_LABEL, "MID LOWER LINE");
+            PlotIndexSetString(3, PLOT_LABEL, "MID LOWER LINE");
             this.supertrend.getChannel(midUpperLine, midLowerLine);
         }
     }
