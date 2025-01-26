@@ -24,6 +24,8 @@ namespace CustomEventHandling {
         bool chan;
 
         AdaptiveSupertrend();
+        ~AdaptiveSupertrend();
+        void deleteInstance();
 
     public:
         static AdaptiveSupertrend *getInstance();
@@ -61,6 +63,15 @@ namespace CustomEventHandling {
         }
 
         return(AdaptiveSupertrend::instance);
+    }
+
+    AdaptiveSupertrend::~AdaptiveSupertrend() {
+        if (CheckPointer(this.supertrend) == 1) {
+            delete this.supertrend;
+            if (this.supertrend != NULL) {
+                this.supertrend = NULL;
+            }
+        }
     }
 
     int AdaptiveSupertrend::OnInit() {
@@ -147,6 +158,7 @@ namespace CustomEventHandling {
                 printf("We'll try again !");
                 this.OnDeinit(reason);
             }
+            this.deleteInstance();
         }
     }
 
@@ -169,6 +181,15 @@ namespace CustomEventHandling {
             PlotIndexSetString(2, PLOT_LABEL, "MID UPPER LINE");
             PlotIndexSetString(3, PLOT_LABEL, "MID LOWER LINE");
             this.supertrend.getChannel(midUpperLine, midLowerLine);
+        }
+    }
+
+    void AdaptiveSupertrend::deleteInstance() {
+        if (CheckPointer(AdaptiveSupertrend::instance) == 1) {
+            delete AdaptiveSupertrend::instance;
+            if (AdaptiveSupertrend::instance != NULL) {
+                AdaptiveSupertrend::instance = NULL;
+            }
         }
     }
 };
