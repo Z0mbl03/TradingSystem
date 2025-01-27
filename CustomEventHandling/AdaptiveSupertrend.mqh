@@ -98,7 +98,7 @@ namespace CustomEventHandling {
     const double &low[], const double &close[]) {
         int copyAtr;
         int current = prev_calculated;
-        for (;current < rates_total-2; current++) {
+        for (;current < rates_total-1; current++) {
             if (current > rates_total*90/100) {
                 // copy atr from current position to the previous 100
                 copyAtr = CopyBuffer(this.handle, 0, rates_total - current, this.trainingPeriod, this.atrBuffer);
